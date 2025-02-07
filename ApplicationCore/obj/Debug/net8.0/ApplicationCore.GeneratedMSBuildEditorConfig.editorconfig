@@ -8,6 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = ApplicationCore
-build_property.ProjectDir = C:\Users\kirill\RiderProjects\ShopPractice\ShopPractice\ApplicationCore\
+build_property.ProjectDir = /Users/amorqww/RiderProjects/ShopPractice/ApplicationCore/
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 

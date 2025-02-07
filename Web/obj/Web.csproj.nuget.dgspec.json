@@ -1,29 +1,26 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\kirill\\RiderProjects\\Practica\\Web\\Web.csproj": {}
+    "/Users/amorqww/RiderProjects/ShopPractice/Web/Web.csproj": {}
   },
   "projects": {
-    "C:\\Users\\kirill\\RiderProjects\\Practica\\Domain\\Domain.csproj": {
+    "/Users/amorqww/RiderProjects/ShopPractice/Domain/Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\kirill\\RiderProjects\\Practica\\Domain\\Domain.csproj",
+        "projectUniqueName": "/Users/amorqww/RiderProjects/ShopPractice/Domain/Domain.csproj",
         "projectName": "Domain",
-        "projectPath": "C:\\Users\\kirill\\RiderProjects\\Practica\\Domain\\Domain.csproj",
-        "packagesPath": "C:\\Users\\kirill\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\kirill\\RiderProjects\\Practica\\Domain\\obj\\",
+        "projectPath": "/Users/amorqww/RiderProjects/ShopPractice/Domain/Domain.csproj",
+        "packagesPath": "/Users/amorqww/.nuget/packages/",
+        "outputPath": "/Users/amorqww/RiderProjects/ShopPractice/Domain/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\kirill\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/amorqww/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {},
-          "https://pkgs.dev.azure.com/tgbots/Telegram.Bot/_packaging/release/nuget/v3/index.json": {}
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
@@ -61,37 +58,34 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.403/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\kirill\\RiderProjects\\Practica\\Infrastructure\\Infrastructure.csproj": {
+    "/Users/amorqww/RiderProjects/ShopPractice/Infrastructure/Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\kirill\\RiderProjects\\Practica\\Infrastructure\\Infrastructure.csproj",
+        "projectUniqueName": "/Users/amorqww/RiderProjects/ShopPractice/Infrastructure/Infrastructure.csproj",
         "projectName": "Infrastructure",
-        "projectPath": "C:\\Users\\kirill\\RiderProjects\\Practica\\Infrastructure\\Infrastructure.csproj",
-        "packagesPath": "C:\\Users\\kirill\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\kirill\\RiderProjects\\Practica\\Infrastructure\\obj\\",
+        "projectPath": "/Users/amorqww/RiderProjects/ShopPractice/Infrastructure/Infrastructure.csproj",
+        "packagesPath": "/Users/amorqww/.nuget/packages/",
+        "outputPath": "/Users/amorqww/RiderProjects/ShopPractice/Infrastructure/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\kirill\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/amorqww/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {},
-          "https://pkgs.dev.azure.com/tgbots/Telegram.Bot/_packaging/release/nuget/v3/index.json": {}
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\kirill\\RiderProjects\\Practica\\Domain\\Domain.csproj": {
-                "projectPath": "C:\\Users\\kirill\\RiderProjects\\Practica\\Domain\\Domain.csproj"
+              "/Users/amorqww/RiderProjects/ShopPractice/Domain/Domain.csproj": {
+                "projectPath": "/Users/amorqww/RiderProjects/ShopPractice/Domain/Domain.csproj"
               }
             }
           }
@@ -112,6 +106,12 @@
           "targetAlias": "net8.0",
           "dependencies": {
             "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[9.0.1, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
               "target": "Package",
               "version": "[9.0.1, )"
             },
@@ -136,37 +136,34 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.403/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\kirill\\RiderProjects\\Practica\\Web\\Web.csproj": {
+    "/Users/amorqww/RiderProjects/ShopPractice/Web/Web.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\kirill\\RiderProjects\\Practica\\Web\\Web.csproj",
+        "projectUniqueName": "/Users/amorqww/RiderProjects/ShopPractice/Web/Web.csproj",
         "projectName": "Web",
-        "projectPath": "C:\\Users\\kirill\\RiderProjects\\Practica\\Web\\Web.csproj",
-        "packagesPath": "C:\\Users\\kirill\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\kirill\\RiderProjects\\Practica\\Web\\obj\\",
+        "projectPath": "/Users/amorqww/RiderProjects/ShopPractice/Web/Web.csproj",
+        "packagesPath": "/Users/amorqww/.nuget/packages/",
+        "outputPath": "/Users/amorqww/RiderProjects/ShopPractice/Web/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\kirill\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/amorqww/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {},
-          "https://pkgs.dev.azure.com/tgbots/Telegram.Bot/_packaging/release/nuget/v3/index.json": {}
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\kirill\\RiderProjects\\Practica\\Infrastructure\\Infrastructure.csproj": {
-                "projectPath": "C:\\Users\\kirill\\RiderProjects\\Practica\\Infrastructure\\Infrastructure.csproj"
+              "/Users/amorqww/RiderProjects/ShopPractice/Infrastructure/Infrastructure.csproj": {
+                "projectPath": "/Users/amorqww/RiderProjects/ShopPractice/Infrastructure/Infrastructure.csproj"
               }
             }
           }
@@ -187,6 +184,12 @@
           "targetAlias": "net8.0",
           "dependencies": {
             "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[9.0.1, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
               "target": "Package",
               "version": "[9.0.1, )"
             },
@@ -214,7 +217,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.403/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
