@@ -12,6 +12,7 @@ bin/
 obj/
 **/obj/
 **/bin/
+**/bin/Debug
 
 # Common node modules locations
 /node_modules
