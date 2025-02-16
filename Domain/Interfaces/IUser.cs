@@ -8,7 +8,7 @@ public interface IUser
     Task<User> GetUserById(Guid id);
     Task<bool> CreateUser(User user);
     Task<bool> DeleteUserById(Guid id);
-    Task<User> UpdateUser(User user);
-    
+    Task UpdateUser(Guid id, string password);
+    Task<bool> UserExists(Guid id);
     
 }
