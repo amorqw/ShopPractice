@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
 using Domain.Interfaces;
+using Domain.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Data.Repositories;
@@ -23,10 +24,10 @@ public class UserRepository: IUser
         return await _context.Users.FirstOrDefaultAsync(u=> u.UserId == id);
     }
 
-    public async Task<bool> CreateUser(User user)
+    public async Task<int> CreateUser(User user)
     {
         if (await UserExists(user.UserId))
-            return false;
+            return 0;
         var us = new User()
         {
             UserId = Guid.NewGuid(),
@@ -38,7 +39,7 @@ public class UserRepository: IUser
         };
         _context.Users.Add(us);
         await _context.SaveChangesAsync();
-        return true;
+        return 1;
     }
 
     public async Task<bool> DeleteUserById(Guid id)
@@ -57,5 +58,10 @@ public class UserRepository: IUser
     public async Task<bool> UserExists(Guid id)
     {
         return await _context.Users.AnyAsync(u => u.UserId == id);
+    }
+
+    public async Task<User> GetUserByEmail(string email)
+    {
+        return await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
     }
 }
