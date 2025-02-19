@@ -2,6 +2,7 @@
 using Domain.Interfaces;
 using Domain.Interfaces.Repositories;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 
 namespace Infrastructure.Services.Auth;
 
@@ -17,7 +18,7 @@ public class AuthService: IAuth
         _user = user;
         _passwordHasher = passwordHasher;
         _jwtProvider = jwtProvider;
-        _httpContextAccessor = httpContextAccessor;  
+        _httpContextAccessor = httpContextAccessor;
     }
 
     public async Task<int> Register(string userName, string email, string password, string phoneNumber)
@@ -36,19 +37,18 @@ public class AuthService: IAuth
 
     public async Task<string> Login(string email, string password)
     {
-        var user = await _user.GetUserByEmail(email); 
+        var user = await _user.GetUserByEmail(email);
         if (user == null || !_passwordHasher.Verify(password, user.Password))
         {
-            throw new UnauthorizedAccessException("Invalid credentials.");
+            throw new UnauthorizedAccessException("Неверные данные!");
+            
         }
         var token = _jwtProvider.GenerateToken(user);
-            
         var context = _httpContextAccessor.HttpContext;
         if (context != null)
         {
             context.Response.Cookies.Append("tasty-cookies", token);
         }
-
         return token;
     }
 

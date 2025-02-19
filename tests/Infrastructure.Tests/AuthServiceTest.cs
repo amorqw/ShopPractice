@@ -4,6 +4,7 @@ using Domain.Interfaces;
 using Domain.Interfaces.Repositories;
 using Infrastructure.Services.Auth;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
 

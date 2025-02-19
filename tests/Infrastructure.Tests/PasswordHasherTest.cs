@@ -18,7 +18,7 @@ public class PasswordHasherTest
     [Test]
     public void Generate_ShouldReturnHashedPassword()
     {
-        string password = Guid.NewGuid().ToString();
+        string password = "123";
         string hashedPassword = _passwordHasher.Generate(password);
         Assert.That(hashedPassword, Is.Not.Null);
         Assert.That(hashedPassword, Is.Not.Empty);

@@ -11,7 +11,7 @@ public class UserRepository: IUser
 
     public UserRepository(DataContext context)
     {
-        _context = context;
+        _context = context ?? throw new ArgumentNullException(nameof(context));
     }
 
     public async Task<IEnumerable<User>> GetAllUsers()

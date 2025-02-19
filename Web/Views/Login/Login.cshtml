@@ -1,0 +1,30 @@
+@{
+    ViewData["Title"] = "Login";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link href="~/css/login.css" rel="stylesheet" />
+</head>
+<body>
+<div class="container">
+    <h1>Login </h1>
+    <form asp-action="Login" method="post">
+        <div class="form-group">
+            <label for="email">Email address</label>
+            <input type="email" id="email" name="email" placeholder="Укажите ваш email" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Введите пароль" required>
+        </div>
+        <button type="submit" class="submit-btn">Войти</button>
+    </form>
+    <p>Нет аккаунта? <a href="Register">Зарегистрироваться</a></p>
+</div>
+</body>
+</html>
