@@ -28,16 +28,7 @@ public class UserRepository: IUser
     {
         if (await UserExists(user.UserId))
             return 0;
-        var us = new User()
-        {
-            UserId = Guid.NewGuid(),
-            Password = user.Password,
-            Email = user.Email,
-            FirstName = user.FirstName,
-            LastName = user.LastName,
-            PhoneNumber = user.PhoneNumber
-        };
-        _context.Users.Add(us);
+        _context.Users.Add(user);
         await _context.SaveChangesAsync();
         return 1;
     }

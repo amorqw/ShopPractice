@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Domain.Entities.UserDto;
 using Domain.Interfaces;
 using Domain.Interfaces.Repositories;
 using Microsoft.AspNetCore.Http;
@@ -21,15 +22,17 @@ public class AuthService: IAuth
         _httpContextAccessor = httpContextAccessor;
     }
 
-    public async Task<int> Register(string userName, string email, string password, string phoneNumber)
+    public async Task<int> Register(Register userRegister)
     {
-        var hashedPassword = _passwordHasher.Generate(password);
+        var hashedPassword = _passwordHasher.Generate(userRegister.Password);
         var newUser = new User
         {
-            FirstName = userName,
-            Email = email,
+            UserId = Guid.NewGuid(),
             Password = hashedPassword,
-            PhoneNumber = phoneNumber
+            Email = userRegister.Email,
+            FirstName = userRegister.FirstName,
+            LastName = userRegister.LastName,
+            PhoneNumber = userRegister.PhoneNumber
         };
 
         return await _user.CreateUser(newUser); 
