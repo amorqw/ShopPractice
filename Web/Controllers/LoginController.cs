@@ -29,7 +29,7 @@ public class LoginController : Controller
         try
         {
             var token = await _authService.Login(email, password);
-            return Redirect($"Home/Index?token={token}");
+            return RedirectToAction($"Index" , "Home");
         }
         catch (Exception ex)
         {
