@@ -7,7 +7,7 @@ using Infrastructure.Services;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Core;
+namespace Infrastructure.Services;
 
 public class JwtProvider(IOptions<JwtOptions> jwtOptions) : IJwtProvider
 {
@@ -15,19 +15,21 @@ public class JwtProvider(IOptions<JwtOptions> jwtOptions) : IJwtProvider
 
     public string GenerateToken(User user)
     {
-        Claim[] claims = [
-            new ("userid", user.UserId.ToString()),
-            new ("role", user.IsAdmin.ToString()),
+        Claim[] claims =
+        [
+            new("userid", user.UserId.ToString()),
+            new("role", user.Role.ToString()),
         ];
-        
-        
-        var signingCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtOptions.SecretKey)), 
+
+
+        var signingCredentials = new SigningCredentials(
+            new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtOptions.SecretKey)),
             SecurityAlgorithms.HmacSha256);
         var token = new JwtSecurityToken(
             claims: claims,
             signingCredentials: signingCredentials,
             expires: DateTime.Now.AddHours(_jwtOptions.ExpiresHours));
-        var tokenValue= new JwtSecurityTokenHandler().WriteToken(token);
+        var tokenValue = new JwtSecurityTokenHandler().WriteToken(token);
         return tokenValue;
     }
 }

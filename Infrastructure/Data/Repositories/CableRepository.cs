@@ -8,7 +8,7 @@ public class CableRepository: ICable
 {
     private readonly DataContext _context;
 
-    CableRepository(DataContext context)
+    public CableRepository(DataContext context)
     {
         _context = context;
     }
