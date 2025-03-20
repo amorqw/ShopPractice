@@ -1,0 +1,64 @@
+@model IEnumerable<Domain.Entities.Cable>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Cable</title>
+    <link href="~/css/admin.css" rel="stylesheet"/>
+</head>
+<body>
+<header>
+    <h1>Manage Cable</h1>
+    <nav class="admin-menu">
+        <a href="/Admin/ManagePizzeria">Manage Pizzerias</a>
+        <a href="/Admin/ManagePizzas">Manage Pizzas</a>
+        <a href="/Admin/ManagePizzaAvailable">Manage PizzasAvailable</a>
+        <a href="/Admin/ManageStaffs">Manage Staffs</a>
+        <a href="/Admin/ManageReview">Manage Reviews</a>
+        <a href="/Admin/ManageOrders">Manage Orders</a>
+        <a href="/Admin/ManageOrderItems">Manage OrderItems</a>
+        <a href="/Admin/ManageUser">Manage Users</a>
+    </nav>
+</header>
+
+<main>
+    <a href="/Admin/AddPizza" class="btn">Add New Cable</a>
+    <div class="pizza-cards-container">
+        @if (Model != null && Model.Any())
+        {
+        foreach (var cable in Model)
+        {
+        <div class="pizza-card">
+            <h3>@cable.CableName</h3>
+            <p> <strong>Image:</strong></p> @cable.Image
+            <p>
+                <strong>Description:</strong> @cable.CableDescription
+            </p>
+            <p>
+                <strong>Price:</strong> @cable.Price
+            </p>
+            <div class="pizza-actions">
+                <a href="/Admin/EditPizza/@cable.CableId" class="btn">Edit</a>
+                <form action="/Admin/DeletePizza/@cable.CableId" method="post" style="display:inline;">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+
+            </div>
+        </div>
+        }
+        }
+        else
+        {
+        <p>No cables found</p>
+        }
+    </div>
+</main>
+
+<footer>
+    <p>:)</p>
+</footer>
+
+</body>
+</html>
