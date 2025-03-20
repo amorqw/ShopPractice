@@ -1,0 +1,38 @@
+@{
+ViewData["Title"] = "Admin Panel";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link href="~/admin.css" rel="stylesheet" />
+</head>
+<body>
+<header>
+    <header>
+        <h1>Admin Panel</h1>
+        <nav class="admin-menu">
+            <a href="/admin/cable">Manage Cable</a>
+            <a href="/admin/category">Manage Category</a>
+            <a href="/admin/order">Manage Order</a>
+            <a href="/admin/orderitem">Manage OrderItems</a>
+            <a href="/admin/user">Manage Users</a>
+        </nav>
+    </header>
+
+</header>
+
+<main>
+    
+    <h2>Страница администрации!</h2>
+    <p>Выберите нужную секцию для администрирования</p>
+</main>
+
+<footer>
+    <p>Admin Panel</p>
+</footer>
+</body>
+</html>
