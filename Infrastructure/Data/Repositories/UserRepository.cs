@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Domain.Entities.UserDto;
 using Domain.Interfaces;
 using Domain.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -40,11 +41,20 @@ public class UserRepository: IUser
         return await _context.SaveChangesAsync() > 0;
     }
 
-    public async Task UpdateUser(Guid id, string password)
+    public async Task<User> UpdateUser(UpdateUserDto userDto, Guid id)
     {
-        await _context.Users.Where(u => u.UserId == id)
-            .ExecuteUpdateAsync(s => s.SetProperty(c=>c.Password, password));
+        // Обновляем пароль пользователя
+        await _context.Users
+            .Where(u => u.UserId == id)
+            .ExecuteUpdateAsync(s => s.SetProperty(c => c.Password, userDto.Password));
+
+        // Получаем обновленного пользователя
+        var updatedUser = await _context.Users
+            .FirstOrDefaultAsync(u => u.UserId == id);
+
+        return updatedUser;
     }
+
 
     public async Task<bool> UserExists(Guid id)
     {
