@@ -1,4 +1,5 @@
 using System.Text;
+using ApplicationCore.DI;
 using Domain.Interfaces;
 using Domain.Interfaces.Repositories;
 using Infrastructure.Data;
@@ -19,15 +20,8 @@ builder.Services.AddDbContext<DataContext>(options =>
 builder.Services.AddHttpContextAccessor();
 builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection(nameof(JwtOptions)));
 builder.Logging.AddDebug();
-
-builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
-builder.Services.AddScoped<IJwtProvider, JwtProvider>();
-builder.Services.AddScoped<IUser, UserRepository>();
-builder.Services.AddScoped<IAuth, AuthService>();
-builder.Services.AddScoped<ICable, CableRepository>();
-builder.Services.AddScoped<ICategory, CategoryRepository>();
-
-//Перенести в другой файл
+builder.Services.AddApplicationCore();
+//??
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
