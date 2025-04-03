@@ -8,8 +8,8 @@ public interface ICategory
     
     Task<Category> GetByIdAsync(Guid categoryId);
     Task<IEnumerable<Category>> GetAllAsync();
-    Task AddAsync(Category category);
-    Task UpdateAsync(Category category);
+    Task<Category> AddAsync(Category category);
+    Task<Category> UpdateAsync(Guid id);
     Task DeleteAsync(Guid categoryId);
     Task<IEnumerable<Cable>> GetCablesByCategoryIdAsync(Guid categoryId);
 }

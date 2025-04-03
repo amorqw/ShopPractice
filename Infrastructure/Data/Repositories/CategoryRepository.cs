@@ -32,17 +32,21 @@ public class CategoryRepository : ICategory
             .ToListAsync();
     }
 
-    public async Task AddAsync(Category category)
+    public async Task<Category> AddAsync(Category category)
     {
-        category.CategoryId = Guid.NewGuid(); 
         await _context.Categories.AddAsync(category);
         await _context.SaveChangesAsync();
+        var newCategory = _context.Categories.FirstOrDefaultAsync(c => c.CategoryId == category.CategoryId);
+        return await newCategory;
     }
 
-    public async Task UpdateAsync(Category category)
+    public async Task<Category> UpdateAsync(Guid id)
     {
+        var category = await GetByIdAsync(id);
         _context.Categories.Update(category);
         await _context.SaveChangesAsync();
+        var updatedCategory = await _context.Categories.FirstOrDefaultAsync(c => c.CategoryId == id);
+        return updatedCategory;
     }
 
     public async Task DeleteAsync(Guid categoryId)

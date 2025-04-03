@@ -43,12 +43,10 @@ public class UserRepository: IUser
 
     public async Task<User> UpdateUser(UpdateUserDto userDto, Guid id)
     {
-        // Обновляем пароль пользователя
         await _context.Users
             .Where(u => u.UserId == id)
             .ExecuteUpdateAsync(s => s.SetProperty(c => c.Password, userDto.Password));
 
-        // Получаем обновленного пользователя
         var updatedUser = await _context.Users
             .FirstOrDefaultAsync(u => u.UserId == id);
 

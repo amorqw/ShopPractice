@@ -1,30 +1,27 @@
-@* @model Core.Dto.Pizza.PizzaDto
+@* @model Domain.Entities.Cable
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Pizza</title>
+    <title>Добавить кабель</title>
     <link href="~/css/add.css" rel="stylesheet"/>
 </head>
 <body>
 <header>
-    <h1>Add New Pizza</h1>
+    <h1>Добавить новый кабель</h1>
     <nav class="admin-menu">
-        <a href="/Admin/ManagePizzeria">Manage Pizzerias</a>
-        <a href="/Admin/ManagePizzas">Manage Pizzas</a>
-        <a href="/Admin/ManagePizzaAvailable">Manage PizzasAvailable</a>
-        <a href="/Admin/ManageStaffs">Manage Staffs</a>
-        <a href="/Admin/ManageReview">Manage Reviews</a>
-        <a href="/Admin/ManageOrders">Manage Orders</a>
-        <a href="/Admin/ManageOrderItems">Manage OrderItems</a>
-        <a href="/Admin/ManageUser">Manage Users</a>
+        <a href="/admin/cable">Manage Cable</a>
+        <a href="/admin/category">Manage Category</a>
+        <a href="/admin/order">Manage Order</a>
+        <a href="/admin/orderitem">Manage OrderItems</a>
+        <a href="/admin/manageuser">Manage Users</a>
     </nav>
 </header>
 
 <main>
-    <form action="/Admin/AddPizza" method="post">
+    <form action="/admin/addcable" method="post">
         <div>
             <label for="Title">Title:</label>
             @Html.TextBoxFor(m => m.Title, new { @required = "required" })
@@ -56,4 +53,3 @@
 
 </body>
 </html>
-`*@
