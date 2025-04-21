@@ -3,6 +3,7 @@ using System;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20250421055725_AddShoppingCart")]
+    partial class AddShoppingCart
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,7 +33,7 @@ namespace Infrastructure.Migrations
 
                     b.Property<string>("CableDescription")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("jsonb");
 
                     b.Property<string>("CableName")
                         .IsRequired()
@@ -51,42 +54,6 @@ namespace Infrastructure.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Cables");
-                });
-
-            modelBuilder.Entity("Domain.Entities.CartItem", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("CableId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid?>("OrderId")
-                        .HasColumnType("uuid");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<decimal>("TotalPrice")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CableId");
-
-                    b.HasIndex("OrderId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("CartItems");
                 });
 
             modelBuilder.Entity("Domain.Entities.Category", b =>
@@ -126,6 +93,57 @@ namespace Infrastructure.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("Domain.Entities.OrderItem", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("CableId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("OrderId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CableId");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("OrderItems");
+                });
+
+            modelBuilder.Entity("Domain.Entities.ShoppingCart", b =>
+                {
+                    b.Property<Guid>("ShoppingCartId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("CableId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
+
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("numeric");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("ShoppingCartId");
+
+                    b.HasIndex("CableId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("ShoppingCarts");
                 });
 
             modelBuilder.Entity("Domain.Entities.User", b =>
@@ -173,32 +191,6 @@ namespace Infrastructure.Migrations
                     b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("Domain.Entities.CartItem", b =>
-                {
-                    b.HasOne("Domain.Entities.Cable", "Cable")
-                        .WithMany("CartItems")
-                        .HasForeignKey("CableId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Entities.Order", "Order")
-                        .WithMany("CartItems")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("Domain.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Cable");
-
-                    b.Navigation("Order");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("Domain.Entities.Order", b =>
                 {
                     b.HasOne("Domain.Entities.User", "User")
@@ -210,9 +202,47 @@ namespace Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Domain.Entities.OrderItem", b =>
+                {
+                    b.HasOne("Domain.Entities.Cable", "Cable")
+                        .WithMany("OrderItems")
+                        .HasForeignKey("CableId")
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Order", "Order")
+                        .WithMany("OrderItems")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cable");
+
+                    b.Navigation("Order");
+                });
+
+            modelBuilder.Entity("Domain.Entities.ShoppingCart", b =>
+                {
+                    b.HasOne("Domain.Entities.Cable", "Cable")
+                        .WithMany()
+                        .HasForeignKey("CableId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cable");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Domain.Entities.Cable", b =>
                 {
-                    b.Navigation("CartItems");
+                    b.Navigation("OrderItems");
                 });
 
             modelBuilder.Entity("Domain.Entities.Category", b =>
@@ -222,7 +252,7 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.Order", b =>
                 {
-                    b.Navigation("CartItems");
+                    b.Navigation("OrderItems");
                 });
 
             modelBuilder.Entity("Domain.Entities.User", b =>

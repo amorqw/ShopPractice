@@ -18,8 +18,8 @@ public class OrderRepository: IOrder
     {
         return await _context.Orders
             .Include(o => o.User) 
-            .Include(o => o.OrderItems) 
-                .ThenInclude(oi => oi.Cable) 
+            .Include(o => o.CartItems) 
+                .ThenInclude(ci => ci.Cable) 
             .FirstOrDefaultAsync(o => o.OrderId == orderId);
     }
 
@@ -27,8 +27,8 @@ public class OrderRepository: IOrder
     {
         return await _context.Orders
             .Include(o => o.User)
-            .Include(o => o.OrderItems)
-                .ThenInclude(oi => oi.Cable)
+            .Include(o => o.CartItems)
+                .ThenInclude(ci => ci.Cable)
             .ToListAsync();
     }
 
@@ -36,8 +36,8 @@ public class OrderRepository: IOrder
     {
         return await _context.Orders
             .Where(o => o.UserId == userId)
-            .Include(o => o.OrderItems)
-                .ThenInclude(oi => oi.Cable)
+            .Include(o => o.CartItems)
+                .ThenInclude(ci => ci.Cable)
             .ToListAsync();
     }
 
@@ -58,12 +58,16 @@ public class OrderRepository: IOrder
     public async Task DeleteAsync(Guid orderId)
     {
         var order = await _context.Orders
-            .Include(o => o.OrderItems)
+            .Include(o => o.CartItems)
             .FirstOrDefaultAsync(o => o.OrderId == orderId);
 
         if (order != null)
         {
-            _context.OrderItems.RemoveRange(order.OrderItems); 
+            var cartItems = await _context.CartItems
+                .Where(ci => ci.OrderId == orderId)
+                .ToListAsync();
+            
+            _context.CartItems.RemoveRange(cartItems);
             _context.Orders.Remove(order);
             await _context.SaveChangesAsync();
         }

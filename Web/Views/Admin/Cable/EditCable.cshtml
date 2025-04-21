@@ -1,19 +1,54 @@
-@page
-@model Web.Views.Admin.Cable.EditCable
-
-@{
-    Layout = null;
-}
+@model Domain.Entities.Cable
 
 <!DOCTYPE html>
-
-<html>
+<html lang="en">
 <head>
-    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Редактировать кабель</title>
+    <link href="~/css/edit.css" rel="stylesheet" />
 </head>
 <body>
-<div>
-    
-</div>
+<header>
+    <h1>Редактировать кабель</h1>
+    <nav class="admin-menu">
+        <a href="/admin/cable">Manage Cable</a>
+        <a href="/admin/category">Manage Category</a>
+        <a href="/admin/order">Manage Order</a>
+        <a href="/admin/orderitem">Manage OrderItems</a>
+        <a href="/admin/manageuser">Manage Users</a>
+    </nav>
+</header>
+
+<main>
+    <form action="/admin/cable/update/@Model.CableId" method="post">
+        <div>
+            <label for="CableName">Название кабеля:</label>
+            <input type="text" id="CableName" name="CableName" value="@Model.CableName" required />
+        </div>
+        <div>
+            <label for="Price">Цена:</label>
+            <input type="number" id="Price" name="Price" value="@Model.Price" step="0.01" required />
+        </div>
+        <div>
+            <label for="CableDescription">Описание:</label>
+            <textarea id="CableDescription" name="CableDescription" required>@Model.CableDescription</textarea>
+        </div>
+        <div>
+            <label for="Image">Изображение:</label>
+            <input type="text" id="Image" name="Image" value="@Model.Image" />
+        </div>
+        <div>
+            <label for="CategoryId">ID категории:</label>
+            <input type="text" id="CategoryId" name="CategoryId" value="@Model.CategoryId" required />
+        </div>
+        <button type="submit" class="btn">Сохранить изменения</button>
+    </form>
+</main>
+
+<footer>
+    <p>:)</p>
+</footer>
+
 </body>
 </html>

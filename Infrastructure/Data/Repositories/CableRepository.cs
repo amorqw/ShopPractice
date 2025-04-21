@@ -25,12 +25,9 @@ public class CableRepository: ICable
 
     public async Task AddCable(Cable cable)
     {
-        if (!_context.Cables.Any(c => c.CableId == cable.CableId))
-        {
-            cable.CableId = Guid.NewGuid();
-            await _context.Cables.AddAsync(cable);
-            await _context.SaveChangesAsync();
-        }
+        cable.CableId = Guid.NewGuid();
+        await _context.Cables.AddAsync(cable);
+        await _context.SaveChangesAsync();
     }
 
     public async Task DeleteCable(Guid id)
@@ -43,11 +40,19 @@ public class CableRepository: ICable
         }
     }
 
-    public async Task UpdateCable(int price)
+    public async Task UpdateCable(Cable cable)
     {
-        await _context.Cables.Where(c => c.Price == price)
-            .ExecuteUpdateAsync(s => s.SetProperty(c=>c.Price, price));
+        var existingCable = await _context.Cables.FirstOrDefaultAsync(c => c.CableId == cable.CableId);
+        if (existingCable != null)
+        {
+            existingCable.CableName = cable.CableName;
+            existingCable.CableDescription = cable.CableDescription;
+            existingCable.Price = cable.Price;
+            existingCable.CategoryId = cable.CategoryId;
+            await _context.SaveChangesAsync();
+        }
     }
+
     public async Task<IEnumerable<Cable>> GetByCategoryIdAsync(Guid categoryId)
     {
         return await _context.Cables

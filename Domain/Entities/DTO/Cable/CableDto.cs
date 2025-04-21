@@ -13,6 +13,6 @@ public class CableDto
         public string Image { get; set; } = string.Empty;
         [Column(TypeName = "jsonb")] public string CableDescription { get; set; }
         public Guid CategoryId { get; set; }
-        [ForeignKey("CategoryId")] public Category Category { get; set; }
+        [ForeignKey("CategoryId")] public Entities.Category Category { get; set; }
     }
 }

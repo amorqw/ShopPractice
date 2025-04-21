@@ -1,0 +1,59 @@
+@model IEnumerable<Domain.Entities.Order>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Управление заказами</title>
+    <link href="~/admin.css" rel="stylesheet" />
+</head>
+<body>
+<header>
+    <h1>Управление заказами</h1>
+    <nav class="admin-menu">
+        <a href="/admin/cable">Управление кабелями</a>
+        <a href="/admin/category">Управление категориями</a>
+        <a href="/admin/order">Управление заказами</a>
+        <a href="/admin/cartitem">Управление позициями</a>
+        <a href="/admin/manageuser">Управление пользователями</a>
+    </nav>
+</header>
+
+<main>
+    <div class="pizza-cards-container">
+        @if (Model != null && Model.Any())
+        {
+            foreach (var order in Model)
+            {
+                <div class="pizza-card">
+                    <h3>Заказ #@order.OrderId</h3>
+                    <p><strong>Пользователь:</strong> @order.User?.Email</p>
+                    <p><strong>Дата заказа:</strong> @order.OrderDate.ToString("dd.MM.yyyy HH:mm")</p>
+                    <p><strong>Адрес доставки:</strong> @order.ShippingAddress</p>
+                    <p><strong>Позиции в заказе:</strong></p>
+                    <ul>
+                        @foreach (var item in order.CartItems)
+                        {
+                            <li>@item.Cable?.CableName - @item.Quantity шт. (@item.TotalPrice руб.)</li>
+                        }
+                    </ul>
+                    <div class="pizza-actions">
+                        <a href="/admin/order/@order.OrderId" class="btn-edit">Просмотреть</a>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <p>Заказы не найдены</p>
+        }
+    </div>
+</main>
+
+<footer>
+    <p>:)</p>
+</footer>
+
+</body>
+</html> 

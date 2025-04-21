@@ -21,7 +21,6 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection(nameof(JwtOptions)));
 builder.Logging.AddDebug();
 builder.Services.AddApplicationCore();
-//??
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -45,6 +44,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             }
         };
     });
+
 
 var app = builder.Build();
 

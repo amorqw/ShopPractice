@@ -5,50 +5,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Cable</title>
-    <link href="~/css/admin.css" rel="stylesheet"/>
+    <title>Manage Cables</title>
+    <link href="~/admin.css" rel="stylesheet" />
 </head>
 <body>
 <header>
-    <h1>Manage Cable</h1>
+    <h1>Manage Cables</h1>
     <nav class="admin-menu">
         <a href="/admin/cable">Manage Cable</a>
         <a href="/admin/category">Manage Category</a>
         <a href="/admin/order">Manage Order</a>
-        <a href="/admin/orderitem">Manage OrderItems</a>
+        <a href="/admin/cartitem">Manage Cart Items</a>
         <a href="/admin/manageuser">Manage Users</a>
     </nav>
 </header>
 
 <main>
-    <a href="/Admin/AddPizza" class="btn">Add New Cable</a>
+    <button class="btn-add" onclick="window.location.href='/admin/cable/add'">Add New Cable</button>
     <div class="pizza-cards-container">
         @if (Model != null && Model.Any())
         {
-        foreach (var cable in Model)
-        {
-        <div class="pizza-card">
-            <h3>@cable.CableName</h3>
-            <p> <strong>Image:</strong></p> @cable.Image
-            <p>
-                <strong>Description:</strong> @cable.CableDescription
-            </p>
-            <p>
-                <strong>Price:</strong> @cable.Price
-            </p>
-            <div class="pizza-actions">
-                <a href="/Admin/EditPizza/@cable.CableId" class="btn">Edit</a>
-                <form action="/Admin/DeletePizza/@cable.CableId" method="post" style="display:inline;">
-                    <button type="submit" class="btn btn-danger">Delete</button>
-                </form>
-
-            </div>
-        </div>
-        }
+            foreach (var cable in Model)
+            {
+                <div class="pizza-card">
+                    <h3>ID: @cable.CableId</h3>
+                    <p><strong>Name:</strong> @cable.CableName</p>
+                    <p><strong>Description:</strong> @cable.CableDescription</p>
+                    <p><strong>Price:</strong> @cable.Price ₽</p>
+                    <p><strong>Category:</strong> @cable.CategoryId</p>
+                    <div class="pizza-actions">
+                        <a href="/admin/cable/@cable.CableId" class="btn">Edit</a>
+                        <form action="/admin/cable/delete/@cable.CableId" method="post" style="display:inline;">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            }
         }
         else
         {
-        <p>No cables found</p>
+            <p>No cables found</p>
         }
     </div>
 </main>

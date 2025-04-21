@@ -1,19 +1,53 @@
-@page
-@model Web.Views.Admin.Category.ManageCategory
-
-@{
-    Layout = null;
-}
+@model IEnumerable<Domain.Entities.Category>
 
 <!DOCTYPE html>
-
-<html>
+<html lang="en">
 <head>
-    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Управление категориями</title>
+    <link href="~/admin.css" rel="stylesheet" />
 </head>
 <body>
-<div>
-    
-</div>
+<header>
+    <h1>Управление категориями</h1>
+    <nav class="admin-menu">
+        <a href="/admin/cable">Управление кабелями</a>
+        <a href="/admin/category">Управление категориями</a>
+        <a href="/admin/order">Управление заказами</a>
+        <a href="/admin/orderitem">Управление позициями заказа</a>
+        <a href="/admin/manageuser">Управление пользователями</a>
+    </nav>
+</header>
+
+<main>
+    <button class="btn-add" onclick="window.location.href='/admin/category/add'">Добавить новую категорию</button>
+    <div class="category-cards-container">
+        @if (Model != null && Model.Any())
+        {
+            foreach (var category in Model)
+            {
+                <div class="category-card">
+                    <h3>@category.Title</h3>
+                    <div class="category-actions">
+                        <a href="/admin/category/@category.CategoryId" class="btn-edit">Редактировать</a>
+                        <form action="/admin/category/delete/@category.CategoryId" method="post" style="display:inline;">
+                            <button type="submit" class="btn-delete" onclick="return confirm('Вы уверены, что хотите удалить эту категорию?')">Удалить</button>
+                        </form>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <p>Категории не найдены</p>
+        }
+    </div>
+</main>
+
+<footer>
+    <p>:)</p>
+</footer>
+
 </body>
 </html>

@@ -1,65 +1,39 @@
 using Domain.Entities;
-using Domain.Entities.DTO.Category;
-using Domain.Entities.UserDto;
 using Domain.Interfaces.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace Web.Controllers.Admin;
 
 public class CategoryManageController : Controller
 {
     private readonly ICategory _categoryService;
+    private readonly ILogger<CategoryManageController> _logger;
 
-    public CategoryManageController(ICategory categoryService)
+    public CategoryManageController(ICategory categoryService, ILogger<CategoryManageController> logger)
     {
         _categoryService = categoryService;
+        _logger = logger;
     }
 
     [HttpGet]
-    [Route("admin/managecable")]
-    public async Task<IActionResult> ManageCategories()
+    [Route("admin/category")]
+    public async Task<IActionResult> ManageCategory()
     {
         var categories = await _categoryService.GetAllAsync();
         return View("~/Views/Admin/Category/ManageCategory.cshtml", categories);
     }
 
     [HttpGet]
-    [Route("admin/EditCategory/{id}")]
-    public async Task<IActionResult> EditUser(Guid id)
+    [Route("admin/category/{id}")]
+    public async Task<IActionResult> GetCategory(Guid id)
     {
         var category = await _categoryService.GetByIdAsync(id);
         if (category == null)
         {
             return NotFound();
         }
-
-        var categoryDto = new UpdateCategoryDto()
-        {
-            CategoryId = Guid.NewGuid(),
-            Title = category.Title
-        };
-
-        return View("~/Views/Admin/User/EditCategory.cshtml", categoryDto);
-    }
-
-    [HttpPost]
-    [Route("admin/UpdateCategory/{id}")]
-    public async Task<IActionResult> UpdateCategory(Guid id)
-    {
-        if (ModelState.IsValid)
-        {
-            var updatedUser = await _categoryService.UpdateAsync(id);
-            if (updatedUser != null)
-            {
-                return RedirectToAction("ManageCategories");
-            }
-            else
-            {
-                ModelState.AddModelError(string.Empty, "Failed to update category.");
-            }
-        }
-
-        return View("~/Views/Admin/User/EditCategory.cshtml");
+        return View("~/Views/Admin/Category/EditCategory.cshtml", category);
     }
 
     [HttpGet]
@@ -70,27 +44,93 @@ public class CategoryManageController : Controller
     }
 
     [HttpPost]
-    [Route("Admin/AddCable")]
+    [Route("Admin/AddCategory")]
     public async Task<IActionResult> AddCategory(Category category)
     {
-        if (ModelState.IsValid)
+        _logger.LogInformation("Attempting to add new category. Data: {@Category}", category);
+        
+        if (!ModelState.IsValid)
         {
-            var userWithPassword = new Category()
+            foreach (var modelState in ModelState.Values)
             {
-                CategoryId = Guid.NewGuid(),
-                Title = category.Title
-            };
-            var newCategory = await _categoryService.AddAsync(userWithPassword);
-            if (newCategory != null)
+                foreach (var error in modelState.Errors)
+                {
+                    _logger.LogWarning("Validation error: {ErrorMessage}", error.ErrorMessage);
+                }
+            }
+            return View("~/Views/Admin/Category/AddCategory.cshtml", category);
+        }
+
+        try
+        {
+            await _categoryService.AddAsync(category);
+            _logger.LogInformation("Category added successfully");
+            return RedirectToAction("ManageCategory");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error adding category");
+            ModelState.AddModelError("", "An error occurred while adding the category");
+            return View("~/Views/Admin/Category/AddCategory.cshtml", category);
+        }
+    }
+
+    [HttpPost]
+    [Route("admin/category/update/{id}")]
+    public async Task<IActionResult> UpdateCategory(Guid id, Category category)
+    {
+        _logger.LogInformation("Attempting to update category. ID: {Id}, Data: {@Category}", id, category);
+        
+        if (!ModelState.IsValid)
+        {
+            foreach (var modelState in ModelState.Values)
             {
-                return RedirectToAction("ManageCategories");
+                foreach (var error in modelState.Errors)
+                {
+                    _logger.LogWarning("Validation error: {ErrorMessage}", error.ErrorMessage);
+                }
+            }
+            return View("~/Views/Admin/Category/EditCategory.cshtml", category);
+        }
+
+        try
+        {
+            category.CategoryId = id;
+            var updatedCategory = await _categoryService.UpdateAsync(category);
+            if (updatedCategory != null)
+            {
+                _logger.LogInformation("Category updated successfully");
+                return RedirectToAction("ManageCategory");
             }
             else
             {
-                ModelState.AddModelError(string.Empty, "Failed to add category.");
+                _logger.LogWarning("Category not found for update. ID: {Id}", id);
+                ModelState.AddModelError("", "Категория не найдена");
+                return View("~/Views/Admin/Category/EditCategory.cshtml", category);
             }
         }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error updating category");
+            ModelState.AddModelError("", "Произошла ошибка при обновлении категории");
+            return View("~/Views/Admin/Category/EditCategory.cshtml", category);
+        }
+    }
 
-        return View("~/Views/Admin/Category/AddCategory.cshtml");
+    [HttpPost]
+    [Route("admin/category/delete/{id}")]
+    public async Task<IActionResult> DeleteCategory(Guid id)
+    {
+        try
+        {
+            await _categoryService.DeleteAsync(id);
+            _logger.LogInformation("Category deleted successfully. ID: {Id}", id);
+            return RedirectToAction("ManageCategory");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error deleting category. ID: {Id}", id);
+            return RedirectToAction("ManageCategory");
+        }
     }
 }

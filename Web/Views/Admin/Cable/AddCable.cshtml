@@ -1,4 +1,4 @@
-@* @model Domain.Entities.Cable
+@model Domain.Entities.Cable
 
 <!DOCTYPE html>
 <html lang="en">
@@ -6,45 +6,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Добавить кабель</title>
-    <link href="~/css/add.css" rel="stylesheet"/>
+    <link href="~/css/add.css" rel="stylesheet" />
 </head>
 <body>
 <header>
     <h1>Добавить новый кабель</h1>
     <nav class="admin-menu">
-        <a href="/admin/cable">Manage Cable</a>
-        <a href="/admin/category">Manage Category</a>
-        <a href="/admin/order">Manage Order</a>
-        <a href="/admin/orderitem">Manage OrderItems</a>
-        <a href="/admin/manageuser">Manage Users</a>
+        <a href="/admin/cable">Управление кабелями</a>
+        <a href="/admin/category">Управление категориями</a>
+        <a href="/admin/order">Управление заказами</a>
+        <a href="/admin/orderitem">Управление позициями заказа</a>
+        <a href="/admin/manageuser">Управление пользователями</a>
     </nav>
 </header>
 
 <main>
-    <form action="/admin/addcable" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    
+    <form action="/admin/cable/add" method="post">
         <div>
-            <label for="Title">Title:</label>
-            @Html.TextBoxFor(m => m.Title, new { @required = "required" })
+            <label for="CableName">Название кабеля:</label>
+            @Html.TextBoxFor(m => m.CableName, new { @required = "required" })
         </div>
         <div>
-            <label for="Description">Description:</label>
-            @Html.TextAreaFor(m => m.Description, new { @required = "required" })
-        </div>
-        <div>
-            <label for="Price">Price:</label>
+            <label for="Price">Цена:</label>
             @Html.TextBoxFor(m => m.Price, new { type = "number", step = "0.01", @required = "required" })
         </div>
         <div>
-            <label for="Size">Size:</label>
-            @Html.TextBoxFor(m => m.Size, new { @required = "required" })
+            <label for="CableDescription">Описание:</label>
+            @Html.TextAreaFor(m => m.CableDescription, new { @required = "required" })
         </div>
         <div>
-            <label for="Receipt">Receipt:</label>
-            @Html.TextBoxFor(m => m.Receipt, new { @required = "required" })
+            <label for="Image">Изображение:</label>
+            @Html.TextBoxFor(m => m.Image)
         </div>
-        <button type="submit" class="btn">Add Pizza</button>
+        <div>
+            <label for="CategoryId">Категория:</label>
+            <select id="CategoryId" name="CategoryId" required>
+                <option value="">Выберите категорию</option>
+                @foreach (var category in ViewBag.Categories)
+                {
+                    <option value="@category.CategoryId">@category.Title</option>
+                }
+            </select>
+        </div>
+        <button type="submit" class="btn">Добавить кабель</button>
     </form>
-
 </main>
 
 <footer>

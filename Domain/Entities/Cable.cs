@@ -11,10 +11,9 @@ public class Cable
     public string CableName { get; set; } = null!;
     public int Price { get; set; }
     public string Image { get; set; } = string.Empty;
-    [Column(TypeName = "jsonb")]
     public string CableDescription { get; set; }
-    public List<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
+    public List<CartItem> CartItems { get; set; } = new List<CartItem>();
     public Guid CategoryId { get; set; }
     [ForeignKey("CategoryId")]
-    public Category Category { get; set; }
+    public Category? Category { get; set; }
 }

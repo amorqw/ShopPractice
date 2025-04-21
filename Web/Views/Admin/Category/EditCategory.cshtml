@@ -1,0 +1,38 @@
+@model Domain.Entities.Category
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Редактировать Категорию</title>
+    <link href="~/css/edit.css" rel="stylesheet" />
+</head>
+<body>
+<header>
+    <h1>Редактировать Категорию</h1>
+    <nav class="admin-menu">
+        <a href="/admin/cable">Manage Cable</a>
+        <a href="/admin/category">Manage Category</a>
+        <a href="/admin/order">Manage Order</a>
+        <a href="/admin/orderitem">Manage OrderItems</a>
+        <a href="/admin/manageuser">Manage Users</a>
+    </nav>
+</header>
+
+<main>
+    <form action="/admin/category/update/@Model.CategoryId" method="post">
+        <div>
+            <label for="Title">Название категории:</label>
+            <input type="text" id="Title" name="Title" value="@Model.Title" required />
+        </div>
+        <button type="submit" class="btn">Сохранить изменения</button>
+    </form>
+</main>
+
+<footer>
+    <p>:)</p>
+</footer>
+
+</body>
+</html> 

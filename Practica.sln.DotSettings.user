@@ -16,9 +16,9 @@
   &lt;Assembly Path="/Users/amorqww/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.12/ref/net8.0/Microsoft.AspNetCore.Identity.dll" /&gt;
   &lt;PhysicalFolder Path="/Users/amorqww/RiderProjects/ShopPractice" Loaded="True" /&gt;
 &lt;/AssemblyExplorer&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=614c70d3_002Dd85b_002D4e59_002D9973_002D397a857ae62b/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="PasswordHasherTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;NUnit3x::FD5C5C5B-40DD-4F48-B908-C60D6E48C48A::net8.0::Infrastructure.Tests.PasswordHasherTest&lt;/TestId&gt;
-    &lt;TestId&gt;NUnit3x::FD5C5C5B-40DD-4F48-B908-C60D6E48C48A::net8.0::Infrastructure.Tests.AuthServiceTest&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=614c70d3_002Dd85b_002D4e59_002D9973_002D397a857ae62b/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="PasswordHasherTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::FD5C5C5B-40DD-4F48-B908-C60D6E48C48A::net8.0::Infrastructure.Tests.PasswordHasherTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::FD5C5C5B-40DD-4F48-B908-C60D6E48C48A::net8.0::Infrastructure.Tests.AuthServiceTest&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
