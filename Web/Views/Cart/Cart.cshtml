@@ -1,0 +1,81 @@
+@model IEnumerable<Domain.Entities.CartItem>
+@{
+var total = Model.Sum(item => item.Cable.Price * item.Quantity);
+}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Ваша корзина</title>
+    <link href="~/css/home.css" rel="stylesheet"/>
+    <link href="~/css/cart.css" rel="stylesheet"/>
+</head>
+<body>
+<header>
+    <div class="navbar">
+        <div class="logo">
+            <h1><span class="red">Cable</span><span class="black">Shop</span></h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="/">Главная</a></li>
+                <li><a href="/Menu">Каталог</a></li>
+                <li><a href="/Cart" class="active">Корзина</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+<main>
+    <div class="cart-container">
+        <div class="cart-title">Ваша корзина</div>
+        @if (!Model.Any())
+        {
+        <div class="cart-empty">Корзина пуста.</div>
+        }
+        else
+        {
+        <table class="cart-table">
+            <tr>
+                <th>Кабель</th>
+                <th>Цена</th>
+                <th>Количество</th>
+                <th>Сумма</th>
+                <th></th>
+            </tr>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>@item.Cable.CableName</td>
+                <td>@item.Cable.Price ₽</td>
+                <td>
+                    <form method="post" action="/Cart/Update" style="display:flex; align-items:center; gap:6px;">
+                        <input type="hidden" name="cartItemId" value="@item.Id"/>
+                        <input type="number" name="quantity" value="@item.Quantity" min="1"/>
+                        <button type="submit">Обновить</button>
+                    </form>
+                </td>
+                <td>@(item.Cable.Price * item.Quantity) ₽</td>
+                <td>
+                    <form method="post" action="/Cart/Remove">
+                        <input type="hidden" name="cartItemId" value="@item.Id"/>
+                        <button type="submit">Удалить</button>
+                    </form>
+                </td>
+            </tr>
+            }
+        </table>
+        <div class="cart-total">Итого: @total ₽</div>
+        <div class="cart-actions">
+            <form method="post" action="/Cart/Checkout" style="display: flex; flex-direction: column; align-items: flex-end; gap: 12px;">
+                <input type="text" name="shippingAddress" placeholder="Адрес доставки" required style="padding: 10px; border-radius: 8px; border: 1px solid #ccc; width: 300px;"/>
+                <button type="submit">Оформить заказ</button>
+            </form>
+        </div>
+        }
+    </div>
+</main>
+<footer>
+    <p>© CableShop, 2024</p>
+</footer>
+</body>
+</html>

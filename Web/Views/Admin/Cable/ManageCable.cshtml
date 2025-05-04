@@ -32,7 +32,7 @@
                     <p><strong>Name:</strong> @cable.CableName</p>
                     <p><strong>Description:</strong> @cable.CableDescription</p>
                     <p><strong>Price:</strong> @cable.Price ₽</p>
-                    <p><strong>Category:</strong> @cable.CategoryId</p>
+                    <p><strong>Category:</strong> @(cable.Category != null ? cable.Category.Title : "—")</p>
                     <div class="pizza-actions">
                         <a href="/admin/cable/@cable.CableId" class="btn">Edit</a>
                         <form action="/admin/cable/delete/@cable.CableId" method="post" style="display:inline;">

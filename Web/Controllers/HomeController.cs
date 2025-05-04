@@ -1,6 +1,7 @@
 using System.Security.Claims;
 using Domain.Interfaces.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace Web.Controllers;
 
@@ -19,6 +20,9 @@ public class HomeController : Controller
     public async Task<IActionResult> Index()
     {
         var token = Request.Cookies["tasty-cookies"];
+        ViewBag.Category = await _category.GetAllAsync();
+        ViewBag.Cable = (await _cable.GetCables()).Take(4).ToList();
+
         if (string.IsNullOrEmpty(token))
         {
             ViewBag.IsAdmin = false;
@@ -31,9 +35,6 @@ public class HomeController : Controller
                       string.Equals(roleClaim.Value, "true", StringComparison.OrdinalIgnoreCase);
 
         ViewBag.IsAdmin = isAdmin;
-        ViewBag.Category = await _category.GetAllAsync();
-        ViewBag.Cable = await _cable.GetCables();
-
 
         return View("/Views/Home/Home.cshtml");
     }
@@ -43,5 +44,44 @@ public class HomeController : Controller
     {
         Response.Cookies.Delete("tasty-cookies");
         return RedirectToAction("Index");
+    }
+
+    [HttpGet("/Menu")]
+    public async Task<IActionResult> Menu(string sort)
+    {
+        ViewBag.Category = await _category.GetAllAsync();
+        var cables = await _cable.GetCables();
+
+        cables = sort switch
+        {
+            "price_asc" => cables.OrderBy(c => c.Price).ToList(),
+            "price_desc" => cables.OrderByDescending(c => c.Price).ToList(),
+            "name_asc" => cables.OrderBy(c => c.CableName).ToList(),
+            "name_desc" => cables.OrderByDescending(c => c.CableName).ToList(),
+            _ => cables
+        };
+
+        ViewBag.Cable = cables;
+        return View("Menu");
+    }
+
+    [HttpGet("/Menu/Category/{categoryId}")]
+    public async Task<IActionResult> MenuByCategory(Guid categoryId, string sort)
+    {
+        ViewBag.Category = await _category.GetAllAsync();
+        var cables = await _cable.GetByCategoryIdAsync(categoryId);
+
+        cables = sort switch
+        {
+            "price_asc" => cables.OrderBy(c => c.Price).ToList(),
+            "price_desc" => cables.OrderByDescending(c => c.Price).ToList(),
+            "name_asc" => cables.OrderBy(c => c.CableName).ToList(),
+            "name_desc" => cables.OrderByDescending(c => c.CableName).ToList(),
+            _ => cables
+        };
+
+        ViewBag.Cable = cables;
+        ViewBag.SelectedCategory = categoryId;
+        return View("Menu");
     }
 }

@@ -23,7 +23,7 @@
 <main>
     <div asp-validation-summary="All" class="text-danger"></div>
     
-    <form action="/admin/cable/add" method="post">
+    <form action="/admin/cable/add" method="post" enctype="multipart/form-data">
         <div>
             <label for="CableName">Название кабеля:</label>
             @Html.TextBoxFor(m => m.CableName, new { @required = "required" })
@@ -37,8 +37,8 @@
             @Html.TextAreaFor(m => m.CableDescription, new { @required = "required" })
         </div>
         <div>
-            <label for="Image">Изображение:</label>
-            @Html.TextBoxFor(m => m.Image)
+            <label for="ImageFile">Изображение:</label>
+            <input type="file" id="ImageFile" name="ImageFile" accept="image/*" required />
         </div>
         <div>
             <label for="CategoryId">Категория:</label>

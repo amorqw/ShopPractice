@@ -2,6 +2,8 @@ using Domain.Entities;
 using Domain.Interfaces.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace Web.Controllers.Admin;
 
@@ -51,7 +53,7 @@ public class CableManageController : Controller
 
     [HttpPost]
     [Route("admin/cable/add")]
-    public async Task<IActionResult> AddCable(Cable cable)
+    public async Task<IActionResult> AddCable(Cable cable, IFormFile ImageFile)
     {
         _logger.LogInformation("Attempting to add new cable. Data: {@Cable}", cable);
         
@@ -69,6 +71,23 @@ public class CableManageController : Controller
 
         try
         {
+            if (ImageFile != null && ImageFile.Length > 0)
+            {
+                var uploads = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/cables");
+                if (!Directory.Exists(uploads))
+                    Directory.CreateDirectory(uploads);
+
+                var fileName = Guid.NewGuid() + Path.GetExtension(ImageFile.FileName);
+                var filePath = Path.Combine(uploads, fileName);
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await ImageFile.CopyToAsync(stream);
+                }
+
+                cable.Image = "/images/cables/" + fileName;
+            }
+
             await _cableService.AddCable(cable);
             _logger.LogInformation("Cable added successfully");
             return RedirectToAction("ManageCable");
