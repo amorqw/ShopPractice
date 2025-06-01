@@ -81,12 +81,5 @@ public class CategoryRepository : ICategory
         }
     }
 
-    public async Task<IEnumerable<Cable>> GetCablesByCategoryIdAsync(Guid categoryId)
-    {
-        var category = await _context.Categories
-            .Include(c => c.Cables)
-            .FirstOrDefaultAsync(c => c.CategoryId == categoryId);
-
-        return category?.Cables ?? new List<Cable>();
-    }
+    
 }

@@ -1,4 +1,3 @@
-/* Общие стили */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -19,7 +18,6 @@ header h1 {
     font-size: 2rem;
 }
 
-/* Меню навигации */
 .admin-menu {
     display: flex;
     justify-content: center;
@@ -42,7 +40,6 @@ header h1 {
     color: white;
 }
 
-/* Основной блок страницы */
 main {
     padding: 20px;
     background-color: white;
@@ -59,7 +56,6 @@ main h3 {
     color: #333;
 }
 
-/* Стили для формы */
 form {
     display: flex;
     flex-direction: column;
@@ -90,7 +86,6 @@ form input:focus {
     border-color: #28a745;
 }
 
-/* Кнопка "Сохранить" */
 button.btn {
     display: inline-block;
     padding: 12px 20px;
@@ -108,7 +103,6 @@ button.btn:hover {
     background-color: #218838;
 }
 
-/* Футер */
 footer {
     text-align: center;
     background-color: #333;
@@ -118,7 +112,6 @@ footer {
     bottom: 0;
     width: 100%;
 }
-/* Стили для textarea */
 form textarea {
     width: 100%;
     padding: 12px;
@@ -126,8 +119,8 @@ form textarea {
     border: 1px solid #ddd;
     border-radius: 5px;
     box-sizing: border-box;
-    resize: vertical; /* Позволяет изменять высоту textarea */
-    min-height: 150px; /* Минимальная высота textarea */
+    resize: vertical; 
+    min-height: 150px; 
 }
 
 form textarea:focus {
@@ -136,7 +129,6 @@ form textarea:focus {
     box-shadow: 0 0 5px rgba(40, 167, 69, 0.5);
 }
 
-/* Стили для label перед textarea */
 form label {
     display: block;
     font-size: 1rem;

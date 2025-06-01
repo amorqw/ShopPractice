@@ -97,7 +97,7 @@ namespace Web.Controllers.Admin
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Failed to add pizza.");
+                    ModelState.AddModelError(string.Empty, "Failed to add");
                 }
             }
 

@@ -11,5 +11,4 @@ public interface ICategory
     Task<Category> AddAsync(Category category);
     Task<Category> UpdateAsync(Category category);
     Task DeleteAsync(Guid categoryId);
-    Task<IEnumerable<Cable>> GetCablesByCategoryIdAsync(Guid categoryId);
 }

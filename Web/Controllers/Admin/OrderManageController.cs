@@ -10,7 +10,6 @@ public class OrderManageController : Controller
     private readonly IOrder _orderService;
     private readonly IUser _userService;
     private readonly ICartItem _cartItemService;
-    private readonly ILogger<OrderManageController> _logger;
 
     public OrderManageController(
         IOrder orderService,
@@ -21,7 +20,6 @@ public class OrderManageController : Controller
         _orderService = orderService;
         _userService = userService;
         _cartItemService = cartItemService;
-        _logger = logger;
     }
 
     [HttpGet]

@@ -1,11 +1,7 @@
 using System.Text;
 using ApplicationCore.DI;
-using Domain.Interfaces;
-using Domain.Interfaces.Repositories;
 using Infrastructure.Data;
-using Infrastructure.Data.Repositories;
 using Infrastructure.Services;
-using Infrastructure.Services.Auth;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -14,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRazorPages();
 builder.Services.AddControllersWithViews();
+builder.Services.AddMemoryCache();
 
 builder.Services.AddDbContext<DataContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -69,9 +66,3 @@ app.MapControllerRoute(
 
 
 app.Run();
-
-//В админке подправить путь до добавления категории
-// Добавить изображение кабеля
-// В отображении кабеля заменить айди категории на название категории
-// Добавить кнопку для выхода из админки на домашнюю страницу
-// Сделать домашнюю страницу

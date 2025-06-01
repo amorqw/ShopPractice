@@ -2,6 +2,8 @@ using System.Security.Claims;
 using Domain.Interfaces.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
+using Domain.Entities;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace Web.Controllers;
 
@@ -9,19 +11,32 @@ public class HomeController : Controller
 {
     private readonly ICategory _category;
     private readonly ICable _cable;
+    private readonly IMemoryCache _cache;
 
-    public HomeController(ICategory category, ICable cable)
+    public HomeController(ICategory category, ICable cable, IMemoryCache cache)
     {
         _category = category;
         _cable = cable;
+        _cache = cache;
     }
 
     [HttpGet]
     public async Task<IActionResult> Index()
     {
+        string cacheKey = "cables_list";
+        if (!_cache.TryGetValue(cacheKey, out List<Cable> cables))
+        {
+            cables = (await _cable.GetCables()).Take(4).ToList();
+            var cacheEntryOptions = new MemoryCacheEntryOptions
+            {
+                AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5),
+                SlidingExpiration = TimeSpan.FromMinutes(2)
+            };
+            _cache.Set(cacheKey, cables, cacheEntryOptions);
+        }
         var token = Request.Cookies["tasty-cookies"];
         ViewBag.Category = await _category.GetAllAsync();
-        ViewBag.Cable = (await _cable.GetCables()).Take(4).ToList();
+        ViewBag.Cable = (cables);
 
         if (string.IsNullOrEmpty(token))
         {

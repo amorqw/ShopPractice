@@ -21,7 +21,6 @@
 </header>
 
 <main>
-    <button class="btn-add" onclick="window.location.href='/admin/cartitem/add'">Добавить новую позицию</button>
     <div class="pizza-cards-container">
         @if (Model != null && Model.Any())
         {
@@ -36,17 +35,12 @@
                     <p><strong>Заказ:</strong> @(item.Order?.OrderId.ToString() ?? "Нет")</p>
                     <p><strong>Пользователь:</strong> @item.User?.Email</p>
                     <div class="pizza-actions">
-                        <a href="/admin/cartitem/@item.Id" class="btn-edit">Редактировать</a>
                         <form action="/admin/cartitem/delete/@item.Id" method="post" style="display:inline;">
                             <button type="submit" class="btn-delete" onclick="return confirm('Вы уверены, что хотите удалить эту позицию?')">Удалить</button>
                         </form>
                     </div>
                 </div>
             }
-        }
-        else
-        {
-            <p>Позиции не найдены</p>
         }
     </div>
 </main>

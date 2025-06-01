@@ -10,7 +10,6 @@ public class CartItemManageController : Controller
     private readonly ICartItem _cartItemService;
     private readonly IUser _userService;
     private readonly ICable _cableService;
-    private readonly ILogger<CartItemManageController> _logger;
 
     public CartItemManageController(
         ICartItem cartItemService,
@@ -21,7 +20,6 @@ public class CartItemManageController : Controller
         _cartItemService = cartItemService;
         _userService = userService;
         _cableService = cableService;
-        _logger = logger;
     }
 
     [HttpGet]
@@ -59,17 +57,10 @@ public class CartItemManageController : Controller
     [Route("admin/cartitem/add")]
     public async Task<IActionResult> AddCartItem(CartItem cartItem)
     {
-        _logger.LogInformation("Attempting to add new cart item. Data: {@CartItem}", cartItem);
         
         if (!ModelState.IsValid)
         {
-            foreach (var modelState in ModelState.Values)
-            {
-                foreach (var error in modelState.Errors)
-                {
-                    _logger.LogWarning("Validation error: {ErrorMessage}", error.ErrorMessage);
-                }
-            }
+            
             ViewBag.Cables = await _cableService.GetCables();
             return View("~/Views/Admin/CartItem/AddCartItem.cshtml", cartItem);
         }
@@ -77,12 +68,10 @@ public class CartItemManageController : Controller
         try
         {
             await _cartItemService.AddAsync(cartItem);
-            _logger.LogInformation("Cart item added successfully");
             return RedirectToAction("ManageCartItem");
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error adding cart item");
             ModelState.AddModelError("", "Произошла ошибка при добавлении позиции");
             ViewBag.Cables = await _cableService.GetCables();
             return View("~/Views/Admin/CartItem/AddCartItem.cshtml", cartItem);
@@ -107,7 +96,6 @@ public class CartItemManageController : Controller
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error updating cart item");
             ModelState.AddModelError("", "Произошла ошибка при обновлении позиции");
             ViewBag.Cables = await _cableService.GetCables();
             return View("~/Views/Admin/CartItem/EditCartItem.cshtml", cartItem);
@@ -121,12 +109,10 @@ public class CartItemManageController : Controller
         try
         {
             await _cartItemService.DeleteAsync(id);
-            _logger.LogInformation("Cart item deleted successfully. ID: {Id}", id);
             return RedirectToAction("ManageCartItem");
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error deleting cart item. ID: {Id}", id);
             return RedirectToAction("ManageCartItem");
         }
     }
