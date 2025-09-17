@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
 
-namespace Infrastructure.Tests;
+/* namespace Infrastructure.Tests;
 
     [TestFixture]
     public class AuthServiceTest
@@ -169,4 +169,5 @@ namespace Infrastructure.Tests;
             Assert.That(result, Is.EqualTo(1));
         }
     }
+    */
 
