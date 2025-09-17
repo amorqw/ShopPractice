@@ -1,0 +1,31 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: ShopBd
+    restart: always
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: user
+      POSTGRES_DB: Shop
+    ports:
+      - "5432:5432"
+    volumes:
+      - shop-data:/var/lib/postgresql/data
+
+  web:
+    build:
+      context: .
+      dockerfile: Web/Dockerfile
+    container_name: ShopWeb
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+
+volumes:
+  shop-data:
