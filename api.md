@@ -24,31 +24,53 @@ response: Перенаправляет на страницу с списком �
 
 ## Cart
 ### GET /Cart
+Страница просмотра корзины пользователя
+request: /Cart
 ### GET /Cart/OrderSuccess
+Заказ успешен
+request: /Cart/OrderSuccess     
+response: перенаправление на страницу: заказ успешно создан
 ### POST /Cart/Add
+Добавление товара в корзину
+request: /Cart/Add?cableId=<uuid>&quantity=1
 ### POST /Cart/Remove
+Удаление товара из корзины
+request: /Cart/Remove?cartItemId=<uuid>
 ### POST /Cart/Update
+Обновление количества товара в корзине
+request: /Cart/Update?cartItemId=<uuid>&quantity=<integer>          
+response: Страница с обновленным количеством товара в корзине
 ### POST /Cart/Checkout
+Оформление заказа
+request:/Cart/Checkout?shippingAddress=<string>         
+response: перенаправление на страницу с успешным оформлением заказа
 
 
 ## CartItemManage
 ### GET /admin/cartitem
-### GET /admin/cartitem/{id}
-### GET /admin/cartitem/add
-### POST /admin/cartitem/add
-### POST /admin/cartitem/update/{id}
+Получение страницы с содержимым корзины в админ панели
 ### POST /admin/cartitem/delete/{id}
-### POST /admin/cartitem/{id}/quantity
-### POST /admin/cartitem/{id}/movetoorder/{orderId}
+Удаление элементов заказа в корзине через админ панель
+request: /admin/cartitem/delete/:id
 
 
 ## CategoryManage
 ### GET /admin/category
-### GET /admin/category
+Получение Страницы админ панели с отображением списка всех категорий
+### GET /admin/category/{id}
+Получение Страницы с отображением выбранной категории, используется для обновления полей модели
 ### GET /admin/addcategory
+Получение страницы с добавлением категории
+request: /Admin/AddCategory?CategoryId=<uuid>&Title=<string>&Cables=[object Object]&Cables=[object Object]
 ### POST /admin/addcategory
+Создать категорию
+request: /Admin/AddCategory?CategoryId=<uuid>&Title=<string>&Cables=[object Object]&Cables=[object Object]
 ### POST /admin/category/update/{id}
+Обновление полей модели категории
+request:/admin/category/update/:id?CategoryId=<uuid>&Title=<string>&Cables=[object Object]&Cables=[object Object]
 ### POST /admin/category/delete/{id}
+Удаление категории
+request: /admin/category/delete/:id
 
 ## Home
 ### POST /logout
