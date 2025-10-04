@@ -1,4 +1,61 @@
-# Документация классов проекта 
+# CableShop
+Магазин по продаже кабеля. Написан в рамках производственной практики
+1. ### Основные возможности:
+- Регистрация и авторизация пользователей
+- Просмотр каталога кабеля
+- Добавления товара в корзину
+- Оформление заказа
+- Панель администратора
+
+2. ### Используемые технологии:
+- .NET 8
+- PostgreSQL 18
+- Docker
+3. ### Структура проекта:
+- Состоит из 4 проектов
+![img.png](img.png)
+- Domain - сущности, интерфейсы
+![img_1.png](img_1.png)
+- ApplicationCore - содержит единственный класс DependencyInjection, внедрение зависимостей
+![img_2.png](img_2.png)
+- Infrastructure - работа с базой данных
+Содержит конфигурации для создания таблиц, миграции, репозитории с логикой работы бд, сервисы тесно связанные с бд
+![img_3.png](img_3.png)
+- Web  - содержит контроллеры, представления, статические файлы
+![img_4.png](img_4.png)
+4. ### База данных
+- Cables
+  - CableId (uuid)
+  - CableName (text)
+  - Price (integer)
+  - Image (text)
+  - CableDescription (text)
+  - CategoryId (uuid)
+- CartItems
+  - CartItemId (uuid)
+  - CalbeId (uuid)
+  - Quantity (integer)
+  - TotalPrice (numeric(18,2))
+  - Status (text)
+  - OrderId (uuid)
+  - UserId (uuid)
+- Categories
+  - CategoryId (uuid)
+  - Title (text)
+- Orders
+  - OrderId (uuid)
+  - UserId (uuid)
+  - OrderDate (timestamp)
+  - ShippingAddress (text)
+- Users
+  - UserId (uuid)
+  - Password (text)
+  - Email (text)
+  - FirstName (text)
+  - PhoneNumber (text)
+  - Role (boolean)
+
+# Документация классов проекта
 ## class DependencyInjection
 Класс регистрирует сервисы и репозитории (Внедрение зависимотей)
 ### Entities:
