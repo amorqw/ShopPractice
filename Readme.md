@@ -3,7 +3,7 @@
 
 # Установка 
 1. Склонируйте репозиторий `git clone https://github.com/amorqw/ShopPractice.git`
-2. Создайте докер контейнер с помощью команды ` docker run --name Shop -e POSTGRES_USER=user -e POSTGRES_PASSWORD=user -p 5432:5432 -d postgres:latest`
-3. Перейдите в директорию приложения `cd ShopPractice/web`
-4. Установите зависимости и запустите приложение `dotnet restore` `dotnet run`
+2. Создайте докер контейнер с помощью команды `docker-compose up -d --build`, после чего приложение автоматически запустится
    
+### Документация классов системы находится в файле docks.md
+### Документация API системы находится в файле api.md
