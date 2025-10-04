@@ -13,16 +13,16 @@
 - Docker
 3. ### Структура проекта:
 - Состоит из 4 проектов
-![img.png](img.png)
+- ![img.png](img.png)
 - Domain - сущности, интерфейсы
-![img_1.png](img_1.png)
+- ![img_1.png](img_1.png)
 - ApplicationCore - содержит единственный класс DependencyInjection, внедрение зависимостей
-![img_2.png](img_2.png)
+- ![img_2.png](img_2.png)
 - Infrastructure - работа с базой данных
 Содержит конфигурации для создания таблиц, миграции, репозитории с логикой работы бд, сервисы тесно связанные с бд
-![img_3.png](img_3.png)
+- ![img_3.png](img_3.png)
 - Web  - содержит контроллеры, представления, статические файлы
-![img_4.png](img_4.png)
+- ![img_4.png](img_4.png)
 4. ### База данных
 - Cables
   - CableId (uuid)
